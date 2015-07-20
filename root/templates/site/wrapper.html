@@ -1,0 +1,78 @@
+[% SET 
+  sections = [
+    'reports',
+    'maps',
+    'outage',
+    'utilities',
+    'contact'
+  ]
+  bootstrap_path = "/assets/local/misc/static"
+  bootstrap_css = "$bootstrap_path/bootstrap/css/bootstrap.css"
+  custom_css = "$bootstrap_path/justified-nav/justified-nav.css"
+  home_logo = '/assets/rapidapp/misc/static/images/rapidapp_logo_small.png'
+-%]
+[% DEFAULT 
+  title = 'NOSIS'
+-%]
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    
+    <link href="[% bootstrap_css %]" rel="stylesheet">
+    <link href="[% custom_css %]" rel="stylesheet">
+
+    <title>[% title %]</title>
+
+    <!-- enable root hashnav redirects -->
+    <script 
+      type="text/javascript" 
+      src="/assets/rapidapp/misc/static/js/external_hashpath.js"
+    ></script>
+    
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="masthead">
+        <div style="float:right;">
+          [% INCLUDE 
+            rapidapp/public/log_in_out_control.tt 
+            convert_hashpath=1 
+          %]
+        </div>
+        <div>
+          <a href="/">
+            <img src="[% home_logo %]" style="padding-bottom:10px;">
+          </a>
+        </div>
+
+        <ul class="nav navbar-nav nav-justified">
+        [%- FOREACH section IN sections %]
+          [%- IF section == active_section %]
+           <li class="active">
+          [%- ELSE %]
+           <li>
+          [%- END %]
+             <a href="[% section %]">[% section.ucfirst %]</a>
+           </li>
+        [%- END %]
+        </ul>
+      </div>
+
+
+<!-- BEGIN SECTION CONTENT -->
+[% content %]
+<!-- END SECTION CONTENT -->
+      <!-- Site footer -->
+      <div class="footer">
+        <p>&copy; 2015 <a target="_blank" href="http://www.interactivedata.com">
+          Interactive Data 7ticks
+        </a></p>
+      </div>
+    </div> <!-- /container -->
+  </body>
+</html>
